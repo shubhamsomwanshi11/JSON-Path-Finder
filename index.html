@@ -19,25 +19,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/edit/closebrackets.min.js"></script>
-    <script src="./index.js"></script>
+    <script src="./JS/index-browser-umd.cjs"></script>
+    <script src="./JS/index.js"></script>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container mb-5">
         <div class="card p-5 mt-5">
             <h1 class="fs-1 text-body-secondary text-center">
                 JSON Path Finder
             </h1>
+            <p class="text-center"><a
+                    href="https://github.com/shubhamsomwanshi11/JSON-Path-Finder/" rel="nooper" target="_blank">https://github.com/shubhamsomwanshi11/JSON-Path-Finder/</a>
+            </p>
             <div class="mb-3">
-                <label for="jsonpath" class="form-label">JSON Path</label>
-                <input type="text" class="form-control-lg" style="width: 100%;" id="jsonpath" placeholder="JSONPath">
+                <label for="jsonpath" class="form-label fw-bold">JSON Path</label>
+                <input type="text" class="form-control-lg" style="width: 100%;" id="jsonpath" placeholder="$.books"
+                    value="$..book[?(@parent.bicycle && @parent.bicycle.color === &quot;red&quot;)].category" />
             </div>
             <div class="mb-3">
-                <input type="checkbox" id="outputpath">
-                <label for="outputpath" class="form-label fw-bold">Output Paths</label>
+                <div class="row">
+                    <div class="col">
+                        <input type="checkbox" id="outputpath">
+                        <label for="outputpath" class="form-label fw-bold">Output Paths</label>
+                        <button type="button" data-bs-toggle="collapse" data-bs-target="#pathexpression"
+                            class="btn btn-link">Expand JSONPath Expressions</button>
+                    </div>
+                    <div class="col">
+                        <label for="eval"><b>Eval:</b></label>
+                        <select id="eval" class="form-select">
+                            <option value="safe">Safe</option>
+                            <option value="native">Native</option>
+                            <option value="false">False</option>
+                        </select>
+                        <label for="ignoreEvalErrors"><b>ignoreEvalErrors:</b></label>
+                        <select id="ignoreEvalErrors" class="form-select">
+                            <option value="false">False (default)</option>
+                            <option value="true">True</option>
+                        </select>
+                    </div>
+                </div>
 
-                <button type="button" data-bs-toggle="collapse" data-bs-target="#pathexpression"
-                    class="btn btn-link">Expand JSONPath Expressions</button>
                 <div class="mb-3 collapse" id="pathexpression">
                     <table class="table">
                         <thead>
@@ -95,7 +117,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="2">
-                                    <a  href="https://goessner.net/" target="_blank" rel="nooper">See: JSONPath
+                                    <a href="https://goessner.net/" target="_blank" rel="nooper">See: JSONPath
                                         expressions -
                                         https://goessner.net/</a>
                                 </td>
@@ -107,10 +129,24 @@
                 <div class="row align-items-center">
                     <div class="col-6">
                         <h3 class="fs-3 text-center">Inputs</h3>
-                        <textarea id="jsonInput" class="form-control" ></textarea>
+                        <textarea id="jsonInput" rows="15" class="form-control"></textarea>
                     </div>
                     <div class="col-6">
-                        <h3 class="fs-3 text-center">Evaluation Results</h3>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="col text">
+                                <h3 class="fs-3">Evaluation Results</h3>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn  text-white fw-bold" style="background-color: #9b1fe8;"
+                                    id="copyButton">Copy
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                        width="24px" fill="white">
+                                        <path
+                                            d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                         <textarea id="jsonOutput" rows="15" class="form-control" readonly></textarea>
                     </div>
                 </div>
